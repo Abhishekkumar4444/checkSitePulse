@@ -1,0 +1,89 @@
+.sidebarAd {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  width: 160px;
+  min-height: 600px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  visibility: visible;
+  opacity: 1;
+}
+
+.sidebarAd.left {
+  left: 20px;
+}
+
+.sidebarAd.right {
+  right: 20px;
+}
+
+.adLabel {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.adContainer {
+  position: relative;
+  width: 160px;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 1400px) {
+  .sidebarAd {
+    display: none;
+  }
+}
+
+@media (max-width: 1200px) {
+  .sidebarAd {
+    display: none;
+  }
+}
+
+.adPlaceholder {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  padding: 1rem;
+  color: var(--text-tertiary);
+  font-size: 0.85rem;
+  pointer-events: none;
+  z-index: 1;
+  width: 100%;
+}
+
+.adPlaceholder p {
+  margin: 0.5rem 0;
+}
+
+.adPlaceholderNote {
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+  opacity: 0.7;
+}
+
+.adPlaceholder code {
+  background: var(--hover-bg);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.65rem;
+}
+
