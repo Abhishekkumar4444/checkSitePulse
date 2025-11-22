@@ -1,4 +1,4 @@
-# Website Down Detector
+# CheckSitePulse
 
 A Next.js application that checks if websites are down or experiencing issues in real-time. Features a search functionality and displays the status of 5 popular websites by default.
 

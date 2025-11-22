@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useConsent } from '../contexts/ConsentContext'
 
 interface AdSenseProps {
   slot: string
@@ -12,23 +13,19 @@ interface AdSenseProps {
 export default function AdSense({ slot, style, format = 'auto', responsive = true }: AdSenseProps) {
   const adRef = useRef<HTMLDivElement>(null)
   const initialized = useRef(false)
+  const { consent, hasConsent } = useConsent()
 
   useEffect(() => {
     if (!adRef.current || initialized.current) return
     
+    // Don't initialize ads if user hasn't consented or has denied consent
+    if (!hasConsent || (consent && consent.ad_storage === 'denied')) {
+      return
+    }
+    
     // Monitor ad status changes
     const checkAdStatus = () => {
-      const adElement = adRef.current?.querySelector('.adsbygoogle') as HTMLElement
-      if (adElement) {
-        const status = adElement.getAttribute('data-adsbygoogle-status')
-        if (status === 'done') {
-          console.log(`[AdSense] Ad loaded successfully for slot: ${slot}`)
-        } else if (status === 'error') {
-          console.error(`[AdSense] Ad failed to load for slot: ${slot}`)
-        } else if (status === 'unfilled') {
-          console.warn(`[AdSense] No ad available for slot: ${slot} (this is normal for new accounts)`)
-        }
-      }
+      // Monitor ad status silently
     }
     
     const initAd = () => {
@@ -42,26 +39,17 @@ export default function AdSense({ slot, style, format = 'auto', responsive = tru
               try {
                 ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
                 initialized.current = true
-                console.log(`[AdSense] Ad initialized for slot: ${slot}`, {
-                  slot,
-                  client: adElement.getAttribute('data-ad-client'),
-                  format: adElement.getAttribute('data-ad-format')
-                })
               } catch (e) {
                 // Ad already initialized, ignore
                 initialized.current = true
-                console.log(`[AdSense] Ad already initialized for slot: ${slot}`)
               }
             } else {
               initialized.current = true
-              console.log(`[AdSense] Ad status for slot ${slot}:`, status)
             }
           }
-        } else {
-          console.warn('[AdSense] adsbygoogle script not loaded yet')
         }
       } catch (err) {
-        console.error('[AdSense] Error initializing ad:', err)
+        // Error initializing ad, ignore
       }
     }
 
@@ -93,7 +81,7 @@ export default function AdSense({ slot, style, format = 'auto', responsive = tru
       clearInterval(statusInterval)
       if (checkScript) clearInterval(checkScript)
     }
-  }, [slot])
+  }, [slot, hasConsent, consent])
 
   return (
     <div ref={adRef}>

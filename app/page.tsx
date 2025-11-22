@@ -6,7 +6,7 @@ import StatusChart from './components/StatusChart'
 import ShareButton from './components/ShareButton'
 import ThemeToggle from './components/ThemeToggle'
 import WebsiteDetailModal from './components/WebsiteDetailModal'
-import SidebarAd from './components/SidebarAd'
+import AdSense from './components/AdSense'
 
 interface WebsiteStatus {
   url: string
@@ -330,17 +330,20 @@ export default function Home() {
 
   return (
     <>
-      {/* Sidebar Ads */}
-      <SidebarAd position="left" slot="2108187963" />
-      <SidebarAd position="right" slot="2108187963" />
+      {/* Marquee Banner */}
+      <div className={styles.marqueeContainer}>
+        <marquee className={styles.marquee} behavior="scroll" direction="left" scrollamount="3">
+          Made with ❤️ for monitoring website status in real-time • Share this tool with others who need to check website status! • Made with ❤️ for monitoring website status in real-time • Share this tool with others who need to check website status!
+        </marquee>
+      </div>
       
       <main className={styles.container}>
       <div className={styles.header}>
         <div className={styles.headerTop}>
           <div>
             <h1 className={styles.title}>
-              <span className={styles.titleIcon}>🌐</span>
-              Website Down Detector
+              <span className={styles.titleIcon}>💓</span>
+              CheckSitePulse
             </h1>
             <p className={styles.subtitle}>
               Real-time website status monitoring with interactive analytics
@@ -709,12 +712,30 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Bottom Ad Section */}
+      <div className={styles.bottomAdSection}>
+        <div className={styles.adLabel}>Advertisement</div>
+        <AdSense 
+          slot="2108187963" 
+          style={{
+            width: '100%',
+            minHeight: '100px',
+            maxWidth: '728px',
+            margin: '0 auto'
+          }}
+          format="horizontal"
+          responsive={true}
+        />
+      </div>
+      </main>
+
       {/* Footer */}
       <div className={styles.footer}>
-        <p>Made with ❤️ for monitoring website status in real-time</p>
-        <p className={styles.footerNote}>
-          Share this tool with others who need to check website status!
-        </p>
+        <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap', fontSize: '0.9rem' }}>
+          <a href="/about">About</a>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
+        </div>
       </div>
 
       {/* Website Detail Modal */}
@@ -771,7 +792,6 @@ export default function Home() {
           />
         )
       })()}
-      </main>
     </>
   )
 }

@@ -13,7 +13,7 @@ export default function ShareButton({ url, status, responseTime }: ShareButtonPr
   const [copied, setCopied] = useState(false)
 
   const handleShare = async () => {
-    const shareText = `🌐 ${url}\nStatus: ${status}\nResponse Time: ${responseTime}\n\nChecked via Website Down Detector`
+    const shareText = `💓 ${url}\nStatus: ${status}\nResponse Time: ${responseTime}\n\nChecked via CheckSitePulse`
     
     if (navigator.share) {
       try {

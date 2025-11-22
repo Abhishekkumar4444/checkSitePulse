@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useConsent } from '../contexts/ConsentContext'
 import styles from './SidebarAd.module.css'
 
 interface SidebarAdProps {
@@ -11,9 +12,15 @@ interface SidebarAdProps {
 export default function SidebarAd({ position, slot }: SidebarAdProps) {
   const adRef = useRef<HTMLDivElement>(null)
   const initialized = useRef(false)
+  const { consent, hasConsent } = useConsent()
 
   useEffect(() => {
     if (!adRef.current || initialized.current) return
+    
+    // Don't initialize ads if user hasn't consented or has denied consent
+    if (!hasConsent || (consent && consent.ad_storage === 'denied')) {
+      return
+    }
     
     const initAd = () => {
       try {
@@ -36,7 +43,7 @@ export default function SidebarAd({ position, slot }: SidebarAdProps) {
           }
         }
       } catch (err) {
-        console.error('AdSense error:', err)
+        // AdSense error, ignore
       }
     }
 
@@ -58,7 +65,7 @@ export default function SidebarAd({ position, slot }: SidebarAdProps) {
       
       return () => clearInterval(checkScript)
     }
-  }, [slot])
+  }, [slot, hasConsent, consent])
 
   return (
     <div ref={adRef} className={`${styles.sidebarAd} ${styles[position]}`}>
