@@ -16,6 +16,21 @@ export default function AdSense({ slot, style, format = 'auto', responsive = tru
   useEffect(() => {
     if (!adRef.current || initialized.current) return
     
+    // Monitor ad status changes
+    const checkAdStatus = () => {
+      const adElement = adRef.current?.querySelector('.adsbygoogle') as HTMLElement
+      if (adElement) {
+        const status = adElement.getAttribute('data-adsbygoogle-status')
+        if (status === 'done') {
+          console.log(`[AdSense] Ad loaded successfully for slot: ${slot}`)
+        } else if (status === 'error') {
+          console.error(`[AdSense] Ad failed to load for slot: ${slot}`)
+        } else if (status === 'unfilled') {
+          console.warn(`[AdSense] No ad available for slot: ${slot} (this is normal for new accounts)`)
+        }
+      }
+    }
+    
     const initAd = () => {
       try {
         if (typeof window !== 'undefined' && (window as any).adsbygoogle) {
@@ -27,37 +42,56 @@ export default function AdSense({ slot, style, format = 'auto', responsive = tru
               try {
                 ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
                 initialized.current = true
+                console.log(`[AdSense] Ad initialized for slot: ${slot}`, {
+                  slot,
+                  client: adElement.getAttribute('data-ad-client'),
+                  format: adElement.getAttribute('data-ad-format')
+                })
               } catch (e) {
                 // Ad already initialized, ignore
                 initialized.current = true
+                console.log(`[AdSense] Ad already initialized for slot: ${slot}`)
               }
             } else {
               initialized.current = true
+              console.log(`[AdSense] Ad status for slot ${slot}:`, status)
             }
           }
+        } else {
+          console.warn('[AdSense] adsbygoogle script not loaded yet')
         }
       } catch (err) {
-        console.error('AdSense error:', err)
+        console.error('[AdSense] Error initializing ad:', err)
       }
     }
 
+    // Monitor ad status periodically
+    const statusInterval = setInterval(checkAdStatus, 2000)
+    
     // Wait for AdSense script to load
+    let checkScript: NodeJS.Timeout | null = null
+    
     if ((window as any).adsbygoogle) {
       // Small delay to ensure DOM is ready
       setTimeout(initAd, 100)
     } else {
       // Wait for script to load
-      const checkScript = setInterval(() => {
+      checkScript = setInterval(() => {
         if ((window as any).adsbygoogle) {
           initAd()
-          clearInterval(checkScript)
+          if (checkScript) clearInterval(checkScript)
         }
       }, 100)
       
       // Cleanup after 10 seconds
-      setTimeout(() => clearInterval(checkScript), 10000)
-      
-      return () => clearInterval(checkScript)
+      setTimeout(() => {
+        if (checkScript) clearInterval(checkScript)
+      }, 10000)
+    }
+    
+    return () => {
+      clearInterval(statusInterval)
+      if (checkScript) clearInterval(checkScript)
     }
   }, [slot])
 
