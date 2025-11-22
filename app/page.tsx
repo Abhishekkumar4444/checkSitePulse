@@ -332,9 +332,11 @@ export default function Home() {
     <>
       {/* Marquee Banner */}
       <div className={styles.marqueeContainer}>
-        <marquee className={styles.marquee} behavior="scroll" direction="left" scrollamount="3">
-          Made with ❤️ for monitoring website status in real-time • Share this tool with others who need to check website status! • Made with ❤️ for monitoring website status in real-time • Share this tool with others who need to check website status!
-        </marquee>
+        <div className={styles.marquee}>
+          <div className={styles.marqueeContent}>
+            Made with ❤️ for monitoring website status in real-time • Share this tool with others who need to check website status! • Made with ❤️ for monitoring website status in real-time • Share this tool with others who need to check website status! • Made with ❤️ for monitoring website status in real-time • Share this tool with others who need to check website status!
+          </div>
+        </div>
       </div>
       
       <main className={styles.container}>

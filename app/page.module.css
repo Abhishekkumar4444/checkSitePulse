@@ -990,19 +990,36 @@
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 1000;
   padding: 0.75rem 0;
+  overflow: hidden;
 }
 
 .marquee {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marqueeContent {
+  display: inline-block;
   color: rgba(255, 255, 255, 0.95);
   font-size: 0.9rem;
   font-weight: 500;
   white-space: nowrap;
-  margin: 0;
-  padding: 0;
+  animation: scrollMarquee 30s linear infinite;
+  padding-left: 100%;
 }
 
-.marquee:hover {
+.marqueeContainer:hover .marqueeContent {
   animation-play-state: paused;
+}
+
+@keyframes scrollMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Footer */
