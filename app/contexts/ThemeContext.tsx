@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState, useMemo } from 'react'
+import { createContext, useContext, useEffect, useLayoutEffect, useState, useMemo } from 'react'
 
 type Theme = 'light' | 'dark' | 'system'
 
@@ -15,9 +15,14 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 // Helper to get initial theme from localStorage (only on client)
 function getInitialTheme(): Theme {
   if (typeof window === 'undefined') return 'system'
-  const savedTheme = localStorage.getItem('theme') as Theme | null
-  if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
-    return savedTheme
+  try {
+    const savedTheme = localStorage.getItem('theme') as Theme | null
+    if (savedTheme && ['light', 'dark', 'system'].includes(savedTheme)) {
+      return savedTheme
+    }
+  } catch (error) {
+    // localStorage might not be available (e.g., in private browsing)
+    console.warn('Failed to read theme from localStorage:', error)
   }
   return 'system'
 }
@@ -32,12 +37,29 @@ function getEffectiveTheme(theme: Theme): 'light' | 'dark' {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Initialize theme from localStorage immediately to prevent flash
-  const [theme, setThemeState] = useState<Theme>(() => getInitialTheme())
+  // Initialize with 'system' to avoid hydration mismatch
+  // We'll read from localStorage in useEffect on client-side only
+  const [theme, setThemeState] = useState<Theme>('system')
   const [systemTheme, setSystemTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window === 'undefined') return 'light'
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   })
+  
+  // Read theme from localStorage immediately on client mount
+  // Use useLayoutEffect to run synchronously before paint to prevent flash
+  useLayoutEffect(() => {
+    // Read from localStorage - this is the source of truth
+    const savedTheme = getInitialTheme()
+    
+    // Update state immediately to match localStorage
+    setThemeState(savedTheme)
+    
+    // Ensure document theme matches the saved preference
+    const effective = savedTheme === 'system' 
+      ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      : savedTheme
+    document.documentElement.setAttribute('data-theme', effective)
+  }, []) // Only run once on mount
   
   // Calculate effective theme immediately
   const effectiveTheme = useMemo(() => {
@@ -70,8 +92,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const setTheme = (newTheme: Theme) => {
     // Update state immediately
     setThemeState(newTheme)
-    // Save to localStorage
-    localStorage.setItem('theme', newTheme)
+    
+    // Save to localStorage with error handling
+    try {
+      localStorage.setItem('theme', newTheme)
+    } catch (error) {
+      // localStorage might not be available (e.g., in private browsing, quota exceeded)
+      console.warn('Failed to save theme to localStorage:', error)
+    }
+    
     // Update document theme immediately
     if (newTheme === 'system') {
       const newEffective = systemTheme

@@ -7,6 +7,7 @@ import ShareButton from './components/ShareButton'
 import ThemeToggle from './components/ThemeToggle'
 import WebsiteDetailModal from './components/WebsiteDetailModal'
 import AdSense from './components/AdSense'
+import { useLocale } from './contexts/LocaleContext'
 
 interface WebsiteStatus {
   url: string
@@ -38,6 +39,7 @@ const POPULAR_WEBSITES = [
 ]
 
 export default function Home() {
+  const { t } = useLocale()
   const [searchUrl, setSearchUrl] = useState('')
   const [searchResult, setSearchResult] = useState<WebsiteStatus | null>(null)
   const [isSearching, setIsSearching] = useState(false)
@@ -345,10 +347,10 @@ export default function Home() {
           <div>
             <h1 className={styles.title}>
               <span className={styles.titleIcon}>💓</span>
-              CheckSitePulse
+              {t('header.title')}
             </h1>
             <p className={styles.subtitle}>
-              Real-time website status monitoring with interactive analytics
+              {t('header.subtitle')}
             </p>
           </div>
           <ThemeToggle />
@@ -511,16 +513,6 @@ export default function Home() {
               <h3 className={styles.historyTitle}>Recent Searches</h3>
               <span className={styles.historyCount}>({searchHistory.length})</span>
             </div>
-            <button
-              onClick={() => {
-                setSearchHistory([])
-                localStorage.removeItem('searchHistory')
-              }}
-              className={styles.clearHistoryButton}
-              title="Clear history"
-            >
-              🗑️ Clear All
-            </button>
           </div>
           <div className={styles.searchHistoryGrid}>
             {searchHistory.map((url, index) => {

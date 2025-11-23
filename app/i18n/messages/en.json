@@ -1,0 +1,77 @@
+{
+  "common": {
+    "title": "CheckSitePulse",
+    "description": "Check if websites are down or experiencing issues in real-time",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "header": {
+    "title": "CheckSitePulse",
+    "subtitle": "Real-time website status monitoring with interactive analytics"
+  },
+  "stats": {
+    "totalChecks": "Total Checks",
+    "sitesUp": "Sites Up",
+    "sitesDown": "Sites Down",
+    "avgResponse": "Avg Response"
+  },
+  "search": {
+    "placeholder": "Enter website (e.g., cloudflare or cloudflare.com or https://example.com)",
+    "button": "Check Status",
+    "checking": "Checking...",
+    "clear": "Clear",
+    "result": "Search Result"
+  },
+  "status": {
+    "up": "Up",
+    "down": "Down",
+    "operational": "Website is Operational",
+    "downMessage": "Website is Down",
+    "responseTime": "Response Time",
+    "lastChecked": "Last Checked",
+    "verified": "Verified with real-time check"
+  },
+  "popular": {
+    "title": "Popular Websites Status",
+    "subtitle": "Monitor the status of popular websites in real-time",
+    "refresh": "Refresh All",
+    "refreshing": "Refreshing...",
+    "realTimeNote": "All status checks are performed in real-time by making actual HTTP requests to each website",
+    "lastChecked": "Last checked"
+  },
+  "history": {
+    "title": "Recent Searches",
+    "clear": "Clear All",
+    "notChecked": "Not checked yet",
+    "check": "check",
+    "checks": "checks"
+  },
+  "actions": {
+    "share": "Share",
+    "copy": "Copy",
+    "copied": "Copied",
+    "open": "Open",
+    "viewDetails": "View Details"
+  },
+  "footer": {
+    "madeWith": "Made with ❤️ for monitoring website status in real-time",
+    "shareMessage": "Share this tool with others who need to check website status!",
+    "about": "About",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "marquee": {
+    "message": "Made with ❤️ for monitoring website status in real-time • Share this tool with others who need to check website status!"
+  },
+  "cookie": {
+    "title": "🍪 Cookie Consent",
+    "message": "We use cookies to personalize content and ads, to provide social media features and to analyze our traffic. We also share information about your use of our site with our social media, advertising and analytics partners.",
+    "accept": "Accept All",
+    "reject": "Reject All"
+  },
+  "ad": {
+    "label": "Advertisement"
+  }
+}
+

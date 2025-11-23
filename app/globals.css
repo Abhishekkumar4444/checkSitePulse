@@ -59,10 +59,23 @@ body {
 body {
   background: var(--bg-primary);
   min-height: 100vh;
-  padding: 2rem;
+  padding: 1rem;
   color: var(--text-primary);
   position: relative;
   overflow-x: hidden;
+}
+
+/* Responsive body padding */
+@media (min-width: 768px) {
+  body {
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    padding: 2rem;
+  }
 }
 
 /* Pulse background animation */

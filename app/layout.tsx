@@ -3,6 +3,7 @@ import Script from 'next/script'
 import './globals.css'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { ConsentProvider } from './contexts/ConsentContext'
+import { LocaleProvider } from './contexts/LocaleContext'
 import CookieConsent from './components/CookieConsent'
 
 export const metadata: Metadata = {
@@ -22,6 +23,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Viewport for responsive design */}
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         {/* Favicon */}
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/favicon.svg" />
@@ -86,12 +89,14 @@ export default function RootLayout({
         </Script>
       </head>
       <body>
-        <ThemeProvider>
-          <ConsentProvider>
-            {children}
-            <CookieConsent />
-          </ConsentProvider>
-        </ThemeProvider>
+        <LocaleProvider>
+          <ThemeProvider>
+            <ConsentProvider>
+              {children}
+              <CookieConsent />
+            </ConsentProvider>
+          </ThemeProvider>
+        </LocaleProvider>
       </body>
     </html>
   )

@@ -1,0 +1,77 @@
+{
+  "common": {
+    "title": "CheckSitePulse",
+    "description": "Verifica si los sitios web están caídos o experimentando problemas en tiempo real",
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito"
+  },
+  "header": {
+    "title": "CheckSitePulse",
+    "subtitle": "Monitoreo del estado de sitios web en tiempo real con análisis interactivos"
+  },
+  "stats": {
+    "totalChecks": "Verificaciones Totales",
+    "sitesUp": "Sitios Activos",
+    "sitesDown": "Sitios Caídos",
+    "avgResponse": "Respuesta Promedio"
+  },
+  "search": {
+    "placeholder": "Ingresa sitio web (ej., cloudflare o cloudflare.com o https://ejemplo.com)",
+    "button": "Verificar Estado",
+    "checking": "Verificando...",
+    "clear": "Limpiar",
+    "result": "Resultado de Búsqueda"
+  },
+  "status": {
+    "up": "Activo",
+    "down": "Caído",
+    "operational": "El sitio web está operativo",
+    "downMessage": "El sitio web está caído",
+    "responseTime": "Tiempo de Respuesta",
+    "lastChecked": "Última Verificación",
+    "verified": "Verificado con verificación en tiempo real"
+  },
+  "popular": {
+    "title": "Estado de Sitios Web Populares",
+    "subtitle": "Monitorea el estado de sitios web populares en tiempo real",
+    "refresh": "Actualizar Todo",
+    "refreshing": "Actualizando...",
+    "realTimeNote": "Todas las verificaciones de estado se realizan en tiempo real haciendo solicitudes HTTP reales a cada sitio web",
+    "lastChecked": "Última verificación"
+  },
+  "history": {
+    "title": "Búsquedas Recientes",
+    "clear": "Limpiar Todo",
+    "notChecked": "Aún no verificado",
+    "check": "verificación",
+    "checks": "verificaciones"
+  },
+  "actions": {
+    "share": "Compartir",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "open": "Abrir",
+    "viewDetails": "Ver Detalles"
+  },
+  "footer": {
+    "madeWith": "Hecho con ❤️ para monitorear el estado de sitios web en tiempo real",
+    "shareMessage": "¡Comparte esta herramienta con otros que necesiten verificar el estado de sitios web!",
+    "about": "Acerca de",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio"
+  },
+  "marquee": {
+    "message": "Hecho con ❤️ para monitorear el estado de sitios web en tiempo real • ¡Comparte esta herramienta con otros que necesiten verificar el estado de sitios web!"
+  },
+  "cookie": {
+    "title": "🍪 Consentimiento de Cookies",
+    "message": "Utilizamos cookies para personalizar contenido y anuncios, proporcionar funciones de redes sociales y analizar nuestro tráfico. También compartimos información sobre su uso de nuestro sitio con nuestros socios de redes sociales, publicidad y análisis.",
+    "accept": "Aceptar Todo",
+    "reject": "Rechazar Todo"
+  },
+  "ad": {
+    "label": "Publicidad"
+  }
+}
+

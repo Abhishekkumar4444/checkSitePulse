@@ -2,9 +2,22 @@
   max-width: 1400px;
   margin: 0 auto;
   color: var(--text-primary);
-  padding: 2rem 1rem;
+  padding: 1rem 0.5rem;
   position: relative;
   z-index: 1;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 2rem 1rem;
+  }
 }
 
 .header {
@@ -25,40 +38,95 @@
 @media (max-width: 768px) {
   .headerTop {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  
+  .headerTop > div:first-child {
+    text-align: center;
   }
 }
 
 .title {
-  font-size: 3.5rem;
+  font-size: 2rem;
   font-weight: 800;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
   flex-wrap: wrap;
+  line-height: 1.2;
 }
 
 .titleIcon {
-  font-size: 3.5rem;
+  font-size: 2rem;
   animation: bounce 2s infinite;
 }
 
 .subtitle {
-  font-size: 1.3rem;
+  font-size: 0.95rem;
   opacity: 0.95;
   font-weight: 300;
+  line-height: 1.4;
+  padding: 0 0.5rem;
+}
+
+/* Tablet */
+@media (min-width: 640px) {
+  .title {
+    font-size: 2.5rem;
+    gap: 1rem;
+  }
+  
+  .titleIcon {
+    font-size: 2.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+  .title {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .titleIcon {
+    font-size: 3.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1.3rem;
+  }
 }
 
 /* Statistics Dashboard */
 .statsSection {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
   animation: fadeInUp 0.8s ease-out 0.2s both;
+}
+
+@media (min-width: 480px) {
+  .statsSection {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .statsSection {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
 }
 
 .statsSection > * {
@@ -72,16 +140,30 @@
 
 .statCard {
   background: var(--card-bg);
-  border-radius: 16px;
-  padding: 1.5rem;
+  border-radius: 12px;
+  padding: 1rem;
   box-shadow: var(--shadow-md);
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   transition: all 0.3s ease;
   border: 2px solid var(--border-color);
   position: relative;
   overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .statCard {
+    border-radius: 16px;
+    padding: 1.25rem;
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .statCard {
+    padding: 1.5rem;
+  }
 }
 
 .statCard::before {
@@ -106,38 +188,83 @@
 }
 
 .statIcon {
-  font-size: 2.5rem;
+  font-size: 1.75rem;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .statContent {
   flex: 1;
+  min-width: 0;
 }
 
 .statValue {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #667eea;
   line-height: 1.2;
 }
 
 .statLabel {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
   margin-top: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .statIcon {
+    font-size: 2rem;
+  }
+  
+  .statValue {
+    font-size: 1.75rem;
+  }
+  
+  .statLabel {
+    font-size: 0.85rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .statIcon {
+    font-size: 2.5rem;
+  }
+  
+  .statValue {
+    font-size: 2rem;
+  }
+  
+  .statLabel {
+    font-size: 0.9rem;
+  }
 }
 
 /* Search Section */
 .searchSection {
   background: var(--card-bg);
-  border-radius: 20px;
-  padding: 2.5rem;
-  margin-bottom: 2rem;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
   box-shadow: var(--shadow-md);
   animation: fadeInUp 0.8s ease-out 0.4s both;
   border: 1px solid var(--border-color);
   position: relative;
   overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .searchSection {
+    border-radius: 18px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .searchSection {
+    border-radius: 20px;
+    padding: 2.5rem;
+  }
 }
 
 .searchSection::after {
@@ -171,7 +298,14 @@
 .searchInputWrapper {
   flex: 1;
   position: relative;
-  min-width: 250px;
+  min-width: 0;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .searchInputWrapper {
+    min-width: 250px;
+  }
 }
 
 .searchIcon {
@@ -186,14 +320,24 @@
 
 .searchInput {
   width: 100%;
-  padding: 1rem 1rem 1rem 3rem;
-  font-size: 1rem;
+  padding: 0.875rem 0.875rem 0.875rem 2.75rem;
+  font-size: 0.95rem;
   border: 2px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 10px;
   outline: none;
   transition: all 0.3s ease;
   background: var(--hover-bg);
   color: var(--text-primary);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+@media (min-width: 640px) {
+  .searchInput {
+    padding: 1rem 1rem 1rem 3rem;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
 }
 
 .searchInput:focus {
@@ -208,19 +352,31 @@
 }
 
 .searchButton {
-  padding: 1rem 2rem;
-  font-size: 1rem;
+  padding: 0.875rem 1.5rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: white;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   white-space: nowrap;
+  min-height: 44px; /* Better touch target for mobile */
+  justify-content: center;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .searchButton {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    width: auto;
+  }
 }
 
 .searchButton:hover:not(:disabled) {
@@ -238,16 +394,25 @@
 }
 
 .clearButton {
-  padding: 1rem 1.5rem;
-  font-size: 1rem;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.95rem;
   font-weight: 600;
   color: var(--text-secondary);
   background: var(--hover-bg);
   border: 2px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   white-space: nowrap;
+  min-height: 44px; /* Better touch target for mobile */
+}
+
+@media (min-width: 640px) {
+  .clearButton {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 12px;
+  }
 }
 
 .clearButton:hover:not(:disabled) {
@@ -265,12 +430,26 @@
 /* Search History */
 .searchHistorySection {
   background: var(--card-bg);
-  border-radius: 20px;
-  padding: 2rem;
-  margin-bottom: 2rem;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
   box-shadow: var(--shadow-md);
   border: 1px solid var(--border-color);
   animation: fadeInUp 0.8s ease-out 0.5s both;
+}
+
+@media (min-width: 640px) {
+  .searchHistorySection {
+    border-radius: 18px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .searchHistorySection {
+    border-radius: 20px;
+  }
 }
 
 .searchHistoryHeader {
@@ -309,41 +488,50 @@
   font-weight: 600;
 }
 
-.clearHistoryButton {
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--error-color);
-  background: rgba(220, 53, 69, 0.1);
-  border: 2px solid var(--error-color);
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.clearHistoryButton:hover {
-  background: var(--error-color);
-  color: white;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
-}
 
 .searchHistoryGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 480px) {
+  .searchHistoryGrid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .searchHistoryGrid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
 }
 
 .historyCard {
   background: var(--card-bg);
   border: 2px solid var(--border-color);
-  border-radius: 16px;
-  padding: 1.5rem;
+  border-radius: 12px;
+  padding: 0.875rem;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
   animation: scaleIn 0.5s ease-out both;
+}
+
+@media (min-width: 640px) {
+  .historyCard {
+    border-radius: 14px;
+    padding: 1.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .historyCard {
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
 }
 
 .historyCard:nth-child(1) { animation-delay: 0.1s; }
@@ -378,12 +566,12 @@
 .historyCardHeader {
   display: flex;
   align-items: flex-start;
-  gap: 1rem;
-  margin-bottom: 1rem;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
 }
 
 .historyCardIcon {
-  font-size: 2rem;
+  font-size: 1.5rem;
   line-height: 1;
   flex-shrink: 0;
 }
@@ -394,10 +582,10 @@
 }
 
 .historyCardTitle {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.375rem 0;
   word-break: break-all;
 }
 
@@ -405,7 +593,27 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .historyCardHeader {
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .historyCardIcon {
+    font-size: 2rem;
+  }
+  
+  .historyCardTitle {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .historyCardStatus {
+    font-size: 0.85rem;
+  }
 }
 
 .historyStatusDot {
@@ -435,9 +643,9 @@
 .historyCardBadge {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
-  padding: 0.375rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+  font-size: 0.65rem;
   font-weight: 700;
   white-space: nowrap;
   flex-shrink: 0;
@@ -447,21 +655,41 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 1rem;
+  padding-top: 0.75rem;
   border-top: 1px solid var(--border-color);
 }
 
 .historyCardTime {
-  font-size: 0.85rem;
+  font-size: 0.75rem;
   color: var(--text-tertiary);
   font-style: italic;
 }
 
 .historyCardArrow {
-  font-size: 1.25rem;
+  font-size: 1rem;
   color: #667eea;
   transition: transform 0.3s ease;
   opacity: 0.7;
+}
+
+@media (min-width: 640px) {
+  .historyCardBadge {
+    padding: 0.375rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+  }
+  
+  .historyCardFooter {
+    padding-top: 1rem;
+  }
+  
+  .historyCardTime {
+    font-size: 0.85rem;
+  }
+  
+  .historyCardArrow {
+    font-size: 1.25rem;
+  }
 }
 
 .historyCard:hover .historyCardArrow {
@@ -472,12 +700,25 @@
 /* Result Card */
 .resultCard {
   background: var(--card-bg);
-  border-radius: 16px;
-  padding: 2rem;
+  border-radius: 12px;
+  padding: 1.25rem;
   border: 2px solid var(--border-color);
   margin-top: 1.5rem;
   position: relative;
   overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .resultCard {
+    border-radius: 16px;
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .resultCard {
+    padding: 2rem;
+  }
 }
 
 .resultCard::before {
@@ -506,9 +747,21 @@
 }
 
 .resultHeader h2 {
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .resultHeader h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .resultHeader h2 {
+    font-size: 1.75rem;
+  }
 }
 
 .resultUrl {
@@ -527,8 +780,8 @@
 .shareButton,
 .copyButton,
 .openButton {
-  padding: 0.75rem 1.25rem;
-  font-size: 0.9rem;
+  padding: 0.625rem 1rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: #667eea;
   background: #f0f4ff;
@@ -537,6 +790,19 @@
   cursor: pointer;
   transition: all 0.3s ease;
   animation: buttonPulse 2s ease-in-out infinite;
+  min-height: 44px; /* Better touch target */
+  flex: 1;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .shareButton,
+  .copyButton,
+  .openButton {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+    flex: 0 1 auto;
+  }
 }
 
 .shareButton:hover,
@@ -645,11 +911,25 @@
 /* Popular Section */
 .popularSection {
   background: var(--card-bg);
-  border-radius: 20px;
-  padding: 2.5rem;
+  border-radius: 16px;
+  padding: 1.5rem;
   box-shadow: var(--shadow-md);
   animation: fadeInUp 0.8s ease-out 0.6s both;
   border: 1px solid var(--border-color);
+}
+
+@media (min-width: 640px) {
+  .popularSection {
+    border-radius: 18px;
+    padding: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .popularSection {
+    border-radius: 20px;
+    padding: 2.5rem;
+  }
 }
 
 .sectionHeader {
@@ -662,9 +942,21 @@
 }
 
 .sectionHeader h2 {
-  font-size: 2.25rem;
+  font-size: 1.5rem;
   color: var(--text-primary);
   margin-bottom: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .sectionHeader h2 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sectionHeader h2 {
+    font-size: 2.25rem;
+  }
 }
 
 .sectionSubtitle {
@@ -674,19 +966,30 @@
 }
 
 .refreshButton {
-  padding: 0.875rem 1.75rem;
-  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.9rem;
   font-weight: 600;
   color: white;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   border: none;
-  border-radius: 12px;
+  border-radius: 10px;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   gap: 0.5rem;
   white-space: nowrap;
+  min-height: 44px; /* Better touch target */
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .refreshButton {
+    padding: 0.875rem 1.75rem;
+    font-size: 1rem;
+    border-radius: 12px;
+    width: auto;
+  }
 }
 
 .refreshButton:hover:not(:disabled) {
@@ -727,19 +1030,47 @@
 
 .websiteGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 480px) {
+  .websiteGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .websiteGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
 }
 
 .websiteCard {
   background: var(--card-bg);
-  border-radius: 16px;
-  padding: 1.75rem;
+  border-radius: 12px;
+  padding: 1.25rem;
   border: 2px solid var(--border-color);
   transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: relative;
   overflow: hidden;
   animation: slideInRight 0.6s ease-out both;
+}
+
+@media (min-width: 640px) {
+  .websiteCard {
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .websiteCard {
+    border-radius: 16px;
+    padding: 1.75rem;
+  }
 }
 
 .websiteCard:nth-child(1) { animation-delay: 0.1s; }
@@ -802,9 +1133,21 @@
 }
 
 .websiteHeader h3 {
-  font-size: 1.5rem;
+  font-size: 1.15rem;
   color: var(--text-primary);
   margin: 0;
+}
+
+@media (min-width: 640px) {
+  .websiteHeader h3 {
+    font-size: 1.35rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .websiteHeader h3 {
+    font-size: 1.5rem;
+  }
 }
 
 .statusIndicator {
@@ -1002,11 +1345,17 @@
 .marqueeContent {
   display: inline-block;
   color: rgba(255, 255, 255, 0.95);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 500;
   white-space: nowrap;
   animation: scrollMarquee 30s linear infinite;
   padding-left: 100%;
+}
+
+@media (min-width: 640px) {
+  .marqueeContent {
+    font-size: 0.9rem;
+  }
 }
 
 .marqueeContainer:hover .marqueeContent {
@@ -1025,12 +1374,26 @@
 /* Footer */
 .footer {
   text-align: center;
-  margin-top: 3rem;
-  padding: 2rem 1rem 5rem;
+  margin-top: 2rem;
+  padding: 1.5rem 1rem 4rem;
   color: rgba(255, 255, 255, 0.95);
   width: 100%;
   position: relative;
   z-index: 10;
+}
+
+@media (min-width: 640px) {
+  .footer {
+    margin-top: 2.5rem;
+    padding: 2rem 1rem 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer {
+    margin-top: 3rem;
+    padding: 2rem 1rem 5rem;
+  }
 }
 
 .footer a {
@@ -1167,43 +1530,30 @@
   }
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem 0.5rem;
-  }
+/* Responsive Design - Mobile First Approach */
 
-  .title {
-    font-size: 2.5rem;
-  }
+/* Mobile (default - already handled above) */
 
-  .titleIcon {
-    font-size: 2.5rem;
+/* Tablet and up */
+@media (min-width: 640px) {
+  .searchForm {
+    flex-wrap: nowrap;
   }
-
-  .subtitle {
-    font-size: 1.1rem;
+  
+  .sectionHeader {
+    flex-direction: row;
+    align-items: center;
   }
+}
 
+/* Small tablets and large phones */
+@media (max-width: 767px) {
   .searchForm {
     flex-direction: column;
   }
 
   .searchInputWrapper {
     width: 100%;
-  }
-
-  .websiteGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .sectionHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .statsSection {
-    grid-template-columns: repeat(2, 1fr);
   }
 
   .resultHeader {
@@ -1213,35 +1563,49 @@
 
   .resultActions {
     width: 100%;
+    flex-direction: column;
   }
 
   .shareButton,
   .copyButton,
   .openButton {
-    flex: 1;
+    width: 100%;
+  }
+  
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .refreshButton {
+    width: 100%;
+    margin-top: 1rem;
   }
 }
 
-@media (max-width: 480px) {
-  .statsSection {
-    grid-template-columns: 1fr;
+/* Large tablets and small desktops */
+@media (min-width: 1024px) {
+  .resultActions {
+    flex-direction: row;
   }
-
-  .title {
-    font-size: 2rem;
+  
+  .shareButton,
+  .copyButton,
+  .openButton {
+    width: auto;
   }
 }
 
 /* Bottom Ad Section */
 .bottomAdSection {
   max-width: 1400px;
-  margin: 3rem auto 2rem;
-  padding: 0 1rem;
+  margin: 2rem auto 1.5rem;
+  padding: 0 0.5rem;
   text-align: center;
 }
 
 .adLabel {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-secondary, #666666);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -1253,9 +1617,20 @@
   color: var(--text-secondary, #999999);
 }
 
-@media (max-width: 768px) {
+@media (min-width: 640px) {
   .bottomAdSection {
-    margin: 2rem auto 1.5rem;
-    padding: 0 0.5rem;
+    margin: 2.5rem auto 1.75rem;
+    padding: 0 0.75rem;
+  }
+  
+  .adLabel {
+    font-size: 0.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bottomAdSection {
+    margin: 3rem auto 2rem;
+    padding: 0 1rem;
   }
 }
