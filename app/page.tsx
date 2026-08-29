@@ -7,6 +7,7 @@ import ShareButton from './components/ShareButton'
 import ThemeToggle from './components/ThemeToggle'
 import WebsiteDetailModal from './components/WebsiteDetailModal'
 import AdSense from './components/AdSense'
+import SidebarAd from './components/SidebarAd'
 import { useLocale } from './contexts/LocaleContext'
 
 interface WebsiteStatus {
@@ -332,6 +333,10 @@ export default function Home() {
 
   return (
     <>
+      {/* Sidebar Ads for Desktop */}
+      <SidebarAd position="left" slot="2108187963" />
+      <SidebarAd position="right" slot="2108187963" />
+
       {/* Marquee Banner */}
       <div className={styles.marqueeContainer}>
         <div className={styles.marquee}>
@@ -708,12 +713,10 @@ export default function Home() {
 
       {/* Bottom Ad Section */}
       <div className={styles.bottomAdSection}>
-        <div className={styles.adLabel}>Advertisement</div>
         <AdSense 
           slot="2108187963" 
           style={{
             width: '100%',
-            minHeight: '100px',
             maxWidth: '728px',
             margin: '0 auto'
           }}

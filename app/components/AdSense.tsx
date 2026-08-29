@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { useConsent } from '../contexts/ConsentContext'
+import { useEffect, useRef, useState } from 'react'
 
 interface AdSenseProps {
   slot: string
@@ -10,93 +9,62 @@ interface AdSenseProps {
   responsive?: boolean
 }
 
-export default function AdSense({ slot, style, format = 'auto', responsive = true }: AdSenseProps) {
+export default function AdSense({
+  slot,
+  style,
+  format = 'auto',
+  responsive = true,
+}: AdSenseProps) {
   const adRef = useRef<HTMLDivElement>(null)
-  const initialized = useRef(false)
-  const { consent, hasConsent } = useConsent()
+  const isLoaded = useRef(false)
+  const [isDev, setIsDev] = useState(false)
 
   useEffect(() => {
-    if (!adRef.current || initialized.current) return
-    
-    // Don't initialize ads if user hasn't consented or has denied consent
-    if (!hasConsent || (consent && consent.ad_storage === 'denied')) {
-      return
-    }
-    
-    // Monitor ad status changes
-    const checkAdStatus = () => {
-      // Monitor ad status silently
-    }
-    
-    const initAd = () => {
-      try {
-        if (typeof window !== 'undefined' && (window as any).adsbygoogle) {
-          const adElement = adRef.current?.querySelector('.adsbygoogle') as HTMLElement
-          if (adElement) {
-            // Check if ad is already initialized
-            const status = adElement.getAttribute('data-adsbygoogle-status')
-            if (!status || status === 'unfilled') {
-              try {
-                ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({})
-                initialized.current = true
-              } catch (e) {
-                // Ad already initialized, ignore
-                initialized.current = true
-              }
-            } else {
-              initialized.current = true
-            }
-          }
-        }
-      } catch (err) {
-        // Error initializing ad, ignore
-      }
+    // Check if running on localhost or dev environment
+    if (typeof window !== 'undefined') {
+      const isLocal =
+        window.location.hostname === 'localhost' ||
+        window.location.hostname === '127.0.0.1' ||
+        process.env.NODE_ENV === 'development'
+      setIsDev(isLocal)
     }
 
-    // Monitor ad status periodically
-    const statusInterval = setInterval(checkAdStatus, 2000)
-    
-    // Wait for AdSense script to load
-    let checkScript: NodeJS.Timeout | null = null
-    
-    if ((window as any).adsbygoogle) {
-      // Small delay to ensure DOM is ready
-      setTimeout(initAd, 100)
-    } else {
-      // Wait for script to load
-      checkScript = setInterval(() => {
-        if ((window as any).adsbygoogle) {
-          initAd()
-          if (checkScript) clearInterval(checkScript)
-        }
-      }, 100)
-      
-      // Cleanup after 10 seconds
-      setTimeout(() => {
-        if (checkScript) clearInterval(checkScript)
-      }, 10000)
+    if (isLoaded.current) return
+
+    try {
+      if (typeof window !== 'undefined') {
+        const adsbygoogle = (window as any).adsbygoogle || []
+        adsbygoogle.push({})
+        isLoaded.current = true
+      }
+    } catch (err) {
+      console.error('AdSense error:', err)
     }
-    
-    return () => {
-      clearInterval(statusInterval)
-      if (checkScript) clearInterval(checkScript)
-    }
-  }, [slot, hasConsent, consent])
+  }, [])
 
   return (
-    <div ref={adRef}>
+    <div
+      ref={adRef}
+      style={{
+        width: '100%',
+        textAlign: 'center',
+        overflow: 'hidden',
+        ...style,
+      }}
+    >
       <ins
         className="adsbygoogle"
         style={{
           display: 'block',
+          textAlign: 'center',
           ...style,
         }}
         data-ad-client="ca-pub-3522508702369023"
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive={responsive ? 'true' : 'false'}
+        data-adtest={isDev ? 'on' : undefined}
       />
     </div>
   )
 }
-
