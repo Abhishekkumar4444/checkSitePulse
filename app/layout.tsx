@@ -7,11 +7,17 @@ import { LocaleProvider } from './contexts/LocaleContext'
 import CookieConsent from './components/CookieConsent'
 
 export const metadata: Metadata = {
-  title: '💓 CheckSitePulse',
-  description: 'Check if websites are down or experiencing issues in real-time',
+  title: 'Is Website Down? Check Any Site Status — CheckSitePulse',
+  description: 'Check if a website is down for everyone or just you. Real-time website status checker for Google, YouTube, Netflix, Facebook, Instagram and any site instantly.',
+  keywords: 'is website down, website down checker, site down, is google down, is youtube down, website status, check website',
   icons: {
     icon: '/favicon.svg',
     apple: '/favicon.svg',
+  },
+  openGraph: {
+    title: 'Is the Website Down? — CheckSitePulse',
+    description: 'Check if any website is down for everyone or just you. Free real-time website status checker.',
+    type: 'website',
   },
 }
 
@@ -89,14 +95,12 @@ export default function RootLayout({
         </Script>
       </head>
       <body>
-        <LocaleProvider>
-          <ThemeProvider>
-            <ConsentProvider>
-              {children}
-              <CookieConsent />
-            </ConsentProvider>
-          </ThemeProvider>
-        </LocaleProvider>
+        <ThemeProvider>
+          <ConsentProvider>
+            {children}
+            <CookieConsent />
+          </ConsentProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

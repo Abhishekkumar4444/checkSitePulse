@@ -9,34 +9,49 @@ interface SidebarAdProps {
 }
 
 export default function SidebarAd({ position, slot }: SidebarAdProps) {
-  const isLoaded = useRef(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const pushed = useRef(false)
   const [isDev, setIsDev] = useState(false)
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const isLocal =
-        window.location.hostname === 'localhost' ||
-        window.location.hostname === '127.0.0.1' ||
-        process.env.NODE_ENV === 'development'
-      setIsDev(isLocal)
-    }
-
-    if (isLoaded.current) return
-
-    try {
-      if (typeof window !== 'undefined') {
-        const adsbygoogle = (window as any).adsbygoogle || []
-        adsbygoogle.push({})
-        isLoaded.current = true
-      }
-    } catch (err) {
-      console.error('Sidebar AdSense error:', err)
-    }
+    const isLocal =
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      process.env.NODE_ENV === 'development'
+    setIsDev(isLocal)
   }, [])
 
+  useEffect(() => {
+    // Guard: don't push twice (Strict Mode double-invoke protection)
+    if (pushed.current) return
+
+    const container = containerRef.current
+    if (!container) return
+
+    const timer = setTimeout(() => {
+      try {
+        const ins = container.querySelector('ins.adsbygoogle')
+        if (ins && typeof window !== 'undefined') {
+          ;(window as any).adsbygoogle = (window as any).adsbygoogle || []
+          ;(window as any).adsbygoogle.push({})
+          pushed.current = true
+        }
+      } catch (err) {
+        // Silently ignore — happens in dev Strict Mode
+      }
+    }, 100)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [isDev])
+
   return (
-    <aside className={`${styles.sidebarAd} ${styles[position]}`} aria-label={`${position} sidebar advertisement`}>
-      <div className={styles.adContainer}>
+    <aside
+      className={`${styles.sidebarAd} ${styles[position]}`}
+      aria-label={`${position} sidebar advertisement`}
+    >
+      <div ref={containerRef} className={styles.adContainer}>
         <ins
           className="adsbygoogle"
           style={{
@@ -48,7 +63,7 @@ export default function SidebarAd({ position, slot }: SidebarAdProps) {
           data-ad-slot={slot}
           data-ad-format="auto"
           data-full-width-responsive="true"
-          data-adtest={isDev ? 'on' : undefined}
+          {...(isDev ? { 'data-adtest': 'on' } : {})}
         />
       </div>
     </aside>

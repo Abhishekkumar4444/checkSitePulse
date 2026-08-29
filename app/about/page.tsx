@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import styles from '../page.module.css'
+import StaticPageLayout from '../components/StaticPageLayout'
 
 export const metadata: Metadata = {
   title: 'About - CheckSitePulse',
@@ -7,71 +7,171 @@ export const metadata: Metadata = {
 }
 
 export default function About() {
+  const sections = [
+    {
+      icon: '🌐',
+      title: 'What is CheckSitePulse?',
+      body: (
+        <p>
+          CheckSitePulse is a free, real-time website status monitoring tool that helps you instantly check if any website is up or down — for everyone or just you. We provide live response times and status monitoring of popular websites worldwide.
+        </p>
+      ),
+    },
+    {
+      icon: '⚡',
+      title: 'Features',
+      body: (
+        <ul>
+          {[
+            ['🔍', 'Real-time Status Checks', 'Instant website status updates'],
+            ['⚡', 'Response Time Monitoring', 'Track performance metrics in ms'],
+            ['🌐', '12 Popular Sites', 'Live monitoring of major websites'],
+            ['🔄', 'Auto-refresh', 'Status updates every 60 seconds'],
+            ['📱', 'Mobile Friendly', 'Works seamlessly on all devices'],
+            ['🌙', 'Dark / Light Mode', 'Comfortable viewing in any lighting'],
+          ].map(([icon, label, desc]) => (
+            <li key={String(label)}>
+              <span className="icon">{icon}</span>
+              <span>
+                <strong>{label}:</strong> {desc}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ),
+    },
+    {
+      icon: '🔧',
+      title: 'How It Works',
+      body: (
+        <>
+          <p style={{ marginBottom: '0.75rem' }}>
+            When you check a website, we make a real HTTP request from our servers to that URL and measure:
+          </p>
+          <ul>
+            {[
+              'HTTP status code (200 = Up, 500+ = Down)',
+              'Response time in milliseconds',
+              'Server response status text',
+            ].map(item => (
+              <li key={item}>
+                <span className="icon" style={{ color: '#22c55e' }}>✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p style={{ marginTop: '0.75rem' }}>
+            All checks are real-time — you always get the most current status information.
+          </p>
+        </>
+      ),
+    },
+    {
+      icon: '🔒',
+      title: 'Privacy & Data',
+      body: (
+        <p>
+          Your privacy matters. All search history is stored locally in your browser only — we don't store your personal information on our servers.{' '}
+          <a href="/privacy" style={{ color: '#6366f1', fontWeight: 600 }}>Read our Privacy Policy →</a>
+        </p>
+      ),
+    },
+    {
+      icon: '💬',
+      title: 'Contact',
+      body: (
+        <p>
+          Have questions or feedback? We'd love to hear from you! Reach out through our support channels or submit feedback on the site.
+        </p>
+      ),
+    },
+  ]
+
   return (
-    <main className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>
-          <span className={styles.titleIcon}>💓</span>
-          About CheckSitePulse
-        </h1>
-        <p className={styles.subtitle}>Real-time website status monitoring made simple</p>
-      </div>
+    <StaticPageLayout
+      title="About CheckSitePulse"
+      subtitle="Real-time website status monitoring made simple, fast, and free."
+      icon="💓"
+      tag="About Us"
+    >
+      <style>{`
+        .csp-about-card {
+          background: var(--bg-card);
+          border: 1px solid var(--border);
+          border-radius: 16px;
+          padding: 1.5rem;
+          backdrop-filter: blur(10px);
+          margin-bottom: 1rem;
+        }
+        .csp-card-heading {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          font-size: 1rem;
+          font-weight: 700;
+          color: var(--text-primary);
+          margin-bottom: 0.9rem;
+        }
+        .csp-card-iconbox {
+          width: 34px;
+          height: 34px;
+          border-radius: 9px;
+          background: rgba(99,102,241,0.12);
+          border: 1px solid rgba(99,102,241,0.2);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 0.95rem;
+          flex-shrink: 0;
+        }
+        .csp-about-card p,
+        .csp-about-card ul {
+          color: var(--text-secondary);
+          line-height: 1.8;
+          font-size: 0.93rem;
+        }
+        .csp-about-card ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.45rem;
+        }
+        .csp-about-card ul li {
+          display: flex;
+          align-items: flex-start;
+          gap: 0.55rem;
+        }
+        .csp-about-card ul li .icon {
+          flex-shrink: 0;
+          margin-top: 2px;
+        }
+        .csp-about-card strong {
+          color: var(--text-primary);
+          font-weight: 600;
+        }
+        .csp-about-card a {
+          text-decoration: none;
+        }
+        .csp-about-card a:hover {
+          text-decoration: underline;
+        }
+        @media (max-width: 480px) {
+          .csp-about-card { padding: 1.1rem; }
+          .csp-card-heading { font-size: 0.95rem; }
+        }
+      `}</style>
 
-      <div style={{ maxWidth: '800px', margin: '0 auto', background: 'var(--card-bg)', padding: '2rem', borderRadius: '16px', boxShadow: 'var(--shadow-md)' }}>
-        <section style={{ marginBottom: '2rem' }}>
-          <h2 style={{ marginBottom: '1rem', color: 'var(--text-primary)' }}>What is CheckSitePulse?</h2>
-          <p style={{ lineHeight: '1.8', color: 'var(--text-secondary)' }}>
-            CheckSitePulse is a free, real-time website status monitoring tool that helps you check if websites 
-            are up or down. We provide instant status checks, response time measurements, and historical data 
-            to help you monitor website availability.
-          </p>
-        </section>
-
-        <section style={{ marginBottom: '2rem' }}>
-          <h2 style={{ marginBottom: '1rem', color: 'var(--text-primary)' }}>Features</h2>
-          <ul style={{ lineHeight: '1.8', color: 'var(--text-secondary)', marginLeft: '2rem' }}>
-            <li>🔍 <strong>Real-time Status Checks:</strong> Get instant website status updates</li>
-            <li>⚡ <strong>Response Time Monitoring:</strong> Track website performance metrics</li>
-            <li>📊 <strong>Historical Data:</strong> View response time trends over time</li>
-            <li>🌐 <strong>Popular Sites Monitoring:</strong> Check status of popular websites</li>
-            <li>📱 <strong>Mobile Friendly:</strong> Works seamlessly on all devices</li>
-            <li>🌙 <strong>Dark Mode:</strong> Comfortable viewing in any lighting</li>
-          </ul>
-        </section>
-
-        <section style={{ marginBottom: '2rem' }}>
-          <h2 style={{ marginBottom: '1rem', color: 'var(--text-primary)' }}>How It Works</h2>
-          <p style={{ lineHeight: '1.8', color: 'var(--text-secondary)', marginBottom: '1rem' }}>
-            When you check a website, we make an HTTP request to the specified URL and measure:
-          </p>
-          <ul style={{ lineHeight: '1.8', color: 'var(--text-secondary)', marginLeft: '2rem' }}>
-            <li>HTTP status code (200 = up, 500+ = down)</li>
-            <li>Response time in milliseconds</li>
-            <li>Server response status</li>
-          </ul>
-          <p style={{ lineHeight: '1.8', color: 'var(--text-secondary)', marginTop: '1rem' }}>
-            All checks are performed in real-time, ensuring you get the most current status information.
-          </p>
-        </section>
-
-        <section style={{ marginBottom: '2rem' }}>
-          <h2 style={{ marginBottom: '1rem', color: 'var(--text-primary)' }}>Privacy & Data</h2>
-          <p style={{ lineHeight: '1.8', color: 'var(--text-secondary)' }}>
-            Your privacy is important to us. All search history is stored locally in your browser. 
-            We don't collect or store your personal information. For more details, please see our 
-            <a href="/privacy" style={{ color: '#667eea', marginLeft: '0.5rem' }}>Privacy Policy</a>.
-          </p>
-        </section>
-
-        <section>
-          <h2 style={{ marginBottom: '1rem', color: 'var(--text-primary)' }}>Contact</h2>
-          <p style={{ lineHeight: '1.8', color: 'var(--text-secondary)' }}>
-            Have questions or feedback? We'd love to hear from you! Use the contact form on our website 
-            or reach out through our support channels.
-          </p>
-        </section>
-      </div>
-    </main>
+      {sections.map(({ icon, title, body }) => (
+        <div key={title} className="csp-about-card">
+          <h2 className="csp-card-heading">
+            <span className="csp-card-iconbox">{icon}</span>
+            {title}
+          </h2>
+          {body}
+        </div>
+      ))}
+    </StaticPageLayout>
   )
 }
-

@@ -15,40 +15,52 @@ export default function AdSense({
   format = 'auto',
   responsive = true,
 }: AdSenseProps) {
-  const adRef = useRef<HTMLDivElement>(null)
-  const isLoaded = useRef(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const pushed = useRef(false)
   const [isDev, setIsDev] = useState(false)
 
   useEffect(() => {
-    // Check if running on localhost or dev environment
-    if (typeof window !== 'undefined') {
-      const isLocal =
-        window.location.hostname === 'localhost' ||
-        window.location.hostname === '127.0.0.1' ||
-        process.env.NODE_ENV === 'development'
-      setIsDev(isLocal)
-    }
-
-    if (isLoaded.current) return
-
-    try {
-      if (typeof window !== 'undefined') {
-        const adsbygoogle = (window as any).adsbygoogle || []
-        adsbygoogle.push({})
-        isLoaded.current = true
-      }
-    } catch (err) {
-      console.error('AdSense error:', err)
-    }
+    const isLocal =
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      process.env.NODE_ENV === 'development'
+    setIsDev(isLocal)
   }, [])
+
+  useEffect(() => {
+    // Guard: don't push twice (Strict Mode double-invoke protection)
+    if (pushed.current) return
+
+    const container = containerRef.current
+    if (!container) return
+
+    // Wait for the ins element to be in DOM before pushing
+    const timer = setTimeout(() => {
+      try {
+        const ins = container.querySelector('ins.adsbygoogle')
+        if (ins && typeof window !== 'undefined') {
+          ;(window as any).adsbygoogle = (window as any).adsbygoogle || []
+          ;(window as any).adsbygoogle.push({})
+          pushed.current = true
+        }
+      } catch (err) {
+        // Silently ignore — happens in dev Strict Mode
+      }
+    }, 100)
+
+    return () => {
+      clearTimeout(timer)
+    }
+  }, [isDev])
 
   return (
     <div
-      ref={adRef}
+      ref={containerRef}
       style={{
         width: '100%',
         textAlign: 'center',
         overflow: 'hidden',
+        minHeight: '90px',
         ...style,
       }}
     >
@@ -63,7 +75,7 @@ export default function AdSense({
         data-ad-slot={slot}
         data-ad-format={format}
         data-full-width-responsive={responsive ? 'true' : 'false'}
-        data-adtest={isDev ? 'on' : undefined}
+        {...(isDev ? { 'data-adtest': 'on' } : {})}
       />
     </div>
   )
